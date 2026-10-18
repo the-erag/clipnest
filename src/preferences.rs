@@ -1,4 +1,4 @@
-//! Preferences window with Clipy's tabs: General, Menu, Type, Exclude, Shortcuts, About.
+//! Preferences window with tabs: General, Menu, Type, Exclude, Shortcuts, About.
 
 use std::cell::{Cell, RefCell};
 use std::rc::Rc;
@@ -27,8 +27,7 @@ const TOOLBAR_CSS: &str = "
 }
 ";
 
-/// (page id, title, icon) in Clipy's order. Clipy's last tab is "Updates";
-/// Clipnest is installed from source, so that slot is "About".
+/// (page id, title, icon), in tab order.
 const PAGES: &[(&str, &str, &str)] = &[
     ("general", "General", "emblem-system-symbolic"),
     ("menu", "Menu", "view-list-symbolic"),
@@ -142,7 +141,7 @@ impl Preferences {
             let _ = provider.load_from_data(TOOLBAR_CSS.as_bytes());
             gtk::StyleContext::add_provider_for_screen(&screen, &provider, gtk::STYLE_PROVIDER_PRIORITY_APPLICATION);
         }
-        // Title bar shows the current tab's name, like Clipy's.
+        // Title bar shows the current tab's name.
         let header = gtk::HeaderBar::new();
         header.set_show_close_button(true);
         header.set_title(Some("General"));
@@ -436,8 +435,6 @@ impl Preferences {
     }
 
     fn type_page(self: &Rc<Self>) -> gtk::Widget {
-        // Laid out like Clipy's Type tab. RTFD and Universal Clipboard are
-        // macOS-only, so they have no counterpart here.
         let grid = grid();
         grid.set_column_spacing(12);
         grid.set_halign(gtk::Align::Center);

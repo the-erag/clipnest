@@ -4,7 +4,7 @@
 //! mirrors the Wayland clipboard into XWayland, and X11 clients may observe
 //! ownership changes without having focus, which Wayland clients may not.
 //!
-//! Like Clipy, every enabled format of a copy is saved: the plain text (or
+//! Every enabled format of a copy is saved: the plain text (or
 //! image, or file list) is what menus show, and HTML / RTF / PDF / file-list
 //! versions are stored alongside it. Pasting from history offers all of them
 //! again, so a formatted paragraph pastes formatted and copied files paste as
@@ -707,7 +707,7 @@ mod tests {
             ..Default::default()
         };
         let mut echo = EchoGuard::default();
-        capture(&cfg, &s, &mut echo, Some("https://github.com/clipy/clipy"), &[]);
+        capture(&cfg, &s, &mut echo, Some("https://erag.in"), &[]);
         capture(&cfg, &s, &mut echo, Some("not a link"), &[]);
         assert_eq!(saved(&s), [("text".into(), "not a link".into())]);
     }

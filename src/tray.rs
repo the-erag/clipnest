@@ -1,4 +1,4 @@
-//! Top-bar icon with the Clipy-style menu.
+//! Top-bar icon with the history menu.
 //!
 //! Where the desktop still hosts legacy (XEmbed) tray icons, as GNOME's
 //! AppIndicator extension does, Clipnest shows one of those: clicks then reach

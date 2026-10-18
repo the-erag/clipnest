@@ -1,4 +1,4 @@
-//! Clipnest: a Clipy-style clipboard manager for Linux.
+//! Clipnest: a clipboard history manager for Linux, by erag.
 
 mod app;
 mod clipboard;
@@ -24,11 +24,11 @@ pub const APP_NAME: &str = "Clipnest";
 
 const USAGE: &str = "Usage: clipnest [COMMAND]
 
-Clipboard history for Linux, inspired by Clipy.
+Clipboard history for Linux, by erag (https://erag.in).
 
 Commands:
   (none)            start Clipnest in the background (panel icon + history)
-  history           show the Clipy-style history menu
+  history           show the clipboard history menu
   search            show/hide the searchable history popup
   preferences       open Preferences
   clear             clear the clipboard history (asks first)

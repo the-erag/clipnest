@@ -228,7 +228,7 @@ impl App {
         Some(rows.max(3) as usize)
     }
 
-    /// The Clipy-style menu for the hotkey (`from_panel` false) or the top bar.
+    /// The history menu for the hotkey (`from_panel` false) or the top bar.
     fn menu_items(self: &Rc<Self>, from_panel: bool, title_length: Option<usize>) -> Vec<crate::menu::MenuItem> {
         let cfg = self.config.get();
         let w = || Rc::downgrade(self);

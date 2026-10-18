@@ -17,7 +17,7 @@ pub struct Settings {
     pub max_history: i64, // pinned items don't count towards this
     pub reorder_on_select: bool,
     pub confirm_clear: bool,
-    // Types to keep (Clipy's "Type" preferences)
+    // Types to keep (the "Type" tab)
     pub store_text: bool,
     pub store_rtf: bool,
     pub store_pdf: bool,
@@ -34,7 +34,7 @@ pub struct Settings {
     pub auto_paste: bool,
     pub paste_keys: String, // ctrl+v | shift+insert | ctrl+shift+v
     pub paste_delay_ms: i64,
-    // Menu (mirrors Clipy's "Menu" preferences)
+    // Menu (the "Menu" tab)
     pub menu_inline_items: i64,
     pub menu_folder_size: i64,
     pub menu_max_items: i64,
@@ -75,14 +75,14 @@ impl Default for Settings {
             menu_inline_items: 15,
             menu_folder_size: 10,
             menu_max_items: 50,
-            menu_title_length: 20, // Clipy's default
+            menu_title_length: 20,
             menu_position: "pointer".into(),
             menu_fixed_width: false,
             menu_width: 360,
             menu_show_numbers: true,
             menu_show_tooltips: true,
             menu_show_images: true,
-            menu_thumb_width: 100, // Clipy's default thumbnail size
+            menu_thumb_width: 100,
             menu_thumb_height: 32,
             hotkey_history: "<Super><Shift>v".into(),
             hotkey_search: "<Super><Shift>f".into(),

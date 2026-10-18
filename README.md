@@ -166,5 +166,3 @@ follow the [code of conduct](CODE_OF_CONDUCT.md).
 ## License
 
 [MIT](LICENSE) © 2026 [erag](https://erag.in)
-
-Inspired by [Clipy](https://github.com/Clipy/Clipy) for macOS.

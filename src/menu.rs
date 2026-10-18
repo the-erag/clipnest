@@ -1,4 +1,4 @@
-//! The Clipy-style menu.
+//! The history menu.
 //!
 //! One model (`build_menu`) is rendered two ways: as a GTK popup menu for the
 //! hotkey (`MenuPresenter`: opens at the mouse pointer, thumbnails, folder
@@ -100,8 +100,8 @@ pub struct MenuActions {
     pub open_folder: Rc<dyn Fn(Vec<MenuItem>)>,
 }
 
-/// First line, trimmed, cut to `length` with a trailing "..." (as Clipy does).
-pub fn clipy_title(text: &str, length: usize) -> String {
+/// First line, trimmed, cut to `length` with a trailing "...".
+pub fn item_title(text: &str, length: usize) -> String {
     let line = text.trim().lines().next().unwrap_or("");
     if line.is_empty() {
         return "(whitespace)".into();
@@ -141,7 +141,7 @@ fn history_item(
         } else {
             format!("{}…", full.chars().take(600).collect::<String>())
         };
-        (clipy_title(entry.display_text(), title_length), None, Some(tooltip))
+        (item_title(entry.display_text(), title_length), None, Some(tooltip))
     };
     if entry.pinned {
         title = format!("★ {title}");
@@ -325,14 +325,14 @@ enum State {
     Open,
 }
 
-/// Pops the Clipy-style menu up as a real GTK menu.
+/// Pops the history menu up as a real GTK menu.
 ///
 /// A GTK menu needs a focused window of ours to hold the keyboard grab, so a
 /// 1×1 invisible anchor window is focused first and the menu is attached to it.
 ///
 /// Wayland doesn't tell apps where the mouse is, and XWayland only learns it
-/// while the pointer is over an X11 window. So to open the menu at the mouse
-/// (like Clipy), an invisible window covering the screen is mapped for a
+/// while the pointer is over an X11 window. So to open the menu at the mouse,
+/// an invisible window covering the screen is mapped for a
 /// moment: the compositor then reports the pointer to it, and it's unmapped
 /// again before the menu appears.
 ///
@@ -817,7 +817,7 @@ impl MenuPresenter {
         widget
     }
 
-    /// 1…9 / 0 pick items 1…10, wherever they sit in the menu (like Clipy).
+    /// 1…9 / 0 pick items 1…10, wherever they sit in the menu.
     /// With Shift held, the item is pasted as plain text.
     fn on_menu_key(&self, event: &gdk::EventKey) -> glib::Propagation {
         let mods = event.state() & gtk::accelerator_get_default_mod_mask();
@@ -887,18 +887,18 @@ mod tests {
     }
 
     #[test]
-    fn titles_are_cut_like_clipy() {
+    fn titles_are_cut_to_length() {
         assert_eq!(
-            clipy_title("jaise other kits use karte hain", 20),
+            item_title("jaise other kits use karte hain", 20),
             "jaise other kits ..."
         );
-        assert_eq!(clipy_title("DB_CONNECTION=mysql", 20), "DB_CONNECTION=mysql");
-        assert_eq!(clipy_title("  first line\nsecond line", 20), "first line");
-        assert_eq!(clipy_title(" \n ", 20), "(whitespace)");
+        assert_eq!(item_title("DB_CONNECTION=mysql", 20), "DB_CONNECTION=mysql");
+        assert_eq!(item_title("  first line\nsecond line", 20), "first line");
+        assert_eq!(item_title(" \n ", 20), "(whitespace)");
     }
 
     #[test]
-    fn layout_like_clipy() {
+    fn layout_numbers_items_and_folds_older_ones() {
         let used = Rc::new(RefCell::new(Vec::new()));
         let log = used.clone();
         let nothing: Callback = Rc::new(|| {});
