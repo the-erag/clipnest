@@ -75,8 +75,8 @@ cargo test
 2. Commit, then tag and push:
 
    ```bash
-   git tag v2.0.1
-   git push origin main v2.0.1
+   git tag v0.0.2
+   git push origin main v0.0.2
    ```
 
 3. The **Release** workflow checks that the tag matches `Cargo.toml`, runs the

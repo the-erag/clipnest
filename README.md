@@ -145,9 +145,6 @@ Wayland keeps apps apart, which a clipboard manager has to work around:
 | `~/.local/share/clipnest/clipnest.db` | history (SQLite) |
 | `~/.local/share/clipnest/images/` | copied images (PNG) |
 
-Clipnest was called Clipora before 2.0. Its settings and history move over
-automatically on first start.
-
 ## Uninstall
 
 ```bash

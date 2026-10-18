@@ -1,8 +1,8 @@
 name: Release
 
-# Push a tag like v2.0.1 and this builds the packages and publishes them as a
+# Push a tag like v0.0.2 and this builds the packages and publishes them as a
 # GitHub release:
-#   git tag v2.0.1 && git push origin v2.0.1
+#   git tag v0.0.2 && git push origin v0.0.2
 on:
   push:
     tags: ["v*"]
