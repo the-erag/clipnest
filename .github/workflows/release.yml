@@ -1,0 +1,55 @@
+name: Release
+
+# Push a tag like v2.0.1 and this builds the packages and publishes them as a
+# GitHub release:
+#   git tag v2.0.1 && git push origin v2.0.1
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write   # to create the release and upload files
+
+jobs:
+  release:
+    name: Build and publish
+    # Built on the oldest supported Ubuntu so the binary runs on 22.04 and newer.
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the tag matches Cargo.toml
+        run: |
+          version="$(sed -n 's/^version = "\(.*\)"/\1/p' Cargo.toml | head -n 1)"
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME doesn't match version $version in Cargo.toml" >&2
+            exit 1
+          fi
+
+      - name: Install GTK 3 development files
+        run: sudo apt-get update && sudo apt-get install -y libgtk-3-dev
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Test
+        run: cargo test --locked
+
+      - name: Build
+        run: cargo build --release --locked
+
+      - name: Package
+        run: |
+          scripts/build-deb.sh
+          scripts/build-tarball.sh
+          cd dist && sha256sum *.deb *.tar.gz > SHA256SUMS
+
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.deb
+            dist/*.tar.gz
+            dist/SHA256SUMS
+          generate_release_notes: true

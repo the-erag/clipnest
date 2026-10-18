@@ -1,0 +1,32 @@
+[package]
+name = "clipnest"
+version = "2.0.0"
+edition = "2021"
+description = "Clipboard history manager for Linux"
+license = "MIT"
+authors = ["erag <https://erag.in>"]
+homepage = "https://erag.in"
+readme = "README.md"
+keywords = ["clipboard", "gnome", "gtk", "linux", "wayland"]
+categories = ["gui"]
+
+[dependencies]
+gtk = "0.18"
+gdk = "0.18"
+gdkx11 = "0.18"
+gdk-pixbuf = "0.18"
+gio = "0.18"
+glib = "0.18"
+pango = "0.18"
+libc = "0.2"
+regex = "1"
+rusqlite = { version = "0.31", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha1_smol = "1"
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true
