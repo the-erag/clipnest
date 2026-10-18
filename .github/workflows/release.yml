@@ -43,6 +43,9 @@ jobs:
         run: |
           scripts/build-deb.sh
           scripts/build-tarball.sh
+          # Also under a fixed name, so the README's
+          # releases/latest/download/clipnest_amd64.deb link always works.
+          cp dist/clipnest_*_amd64.deb dist/clipnest_amd64.deb
           cd dist && sha256sum *.deb *.tar.gz > SHA256SUMS
 
       - name: Publish the release
